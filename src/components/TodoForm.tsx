@@ -7,9 +7,6 @@ interface TodoFormProps {
   onError: (message: string) => void;
 }
 
-/**
- * Component for adding new todo items
- */
 const TodoForm: React.FC<TodoFormProps> = ({ onAddTodo, onError }) => {
   const [content, setContent] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -17,7 +14,6 @@ const TodoForm: React.FC<TodoFormProps> = ({ onAddTodo, onError }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate input
     if (!content.trim()) {
       onError('Todo content cannot be empty');
       return;
@@ -26,13 +22,10 @@ const TodoForm: React.FC<TodoFormProps> = ({ onAddTodo, onError }) => {
     try {
       setIsSubmitting(true);
       
-      // Simulate network delay for better UX feedback
       await new Promise(resolve => setTimeout(resolve, 300));
-      
-      // Add the todo
+    
       onAddTodo(content);
       
-      // Reset form state
       setContent('');
     } catch (err) {
       if (err instanceof Error) {
