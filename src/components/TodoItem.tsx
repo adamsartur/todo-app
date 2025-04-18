@@ -13,12 +13,11 @@ interface TodoItemProps {
   isEditing: boolean;
 }
 
-// Animation variants
 const itemVariants: Variants = {
-  hidden: { opacity: 0, x: 100 }, // Start from right
+  hidden: { opacity: 0, x: 100 },
   visible: { 
     opacity: 1, 
-    x: 0, // Move to original position
+    x: 0,
     transition: { 
       type: "spring", 
       stiffness: 300, 
@@ -27,7 +26,7 @@ const itemVariants: Variants = {
   },
   exit: { 
     opacity: 0, 
-    x: 100, // Exit to right
+    x: 100,
     transition: { 
       duration: 0.3,
       ease: "easeInOut" 
@@ -35,9 +34,6 @@ const itemVariants: Variants = {
   }
 };
 
-/**
- * Component for rendering an individual todo item
- */
 const TodoItem: React.FC<TodoItemProps> = ({ 
   todo, 
   onToggle, 
