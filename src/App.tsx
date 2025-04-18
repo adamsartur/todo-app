@@ -9,7 +9,6 @@ import { useTheme } from './hooks/useTheme';
 import { SuccessToast } from './components/SuccessToast';
 import { ErrorToast } from './components/ErrorToast';
 
-// Animation variants
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: { 
@@ -32,7 +31,6 @@ const itemVariants: Variants = {
 };
 
 function App() {
-  // Initialize with mock data
   const [initialTodos, setInitialTodos] = useState<any[]>([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
@@ -40,19 +38,14 @@ function App() {
   const [errorMessage, setErrorMessage] = useState('');
   const [showCompleted, setShowCompleted] = useState(true);
   
-  // Use theme hook
   const { theme, toggleTheme } = useTheme();
   
-  // Load mock data on component mount
   useEffect(() => {
-    // Simulate API fetch with a small delay
     const fetchData = async () => {
       try {
-        // In a real app, this would be an API call
         const response = await fetch('https://everest-interview-public-files.s3.amazonaws.com/input.json');
         const data = await response.json();
         
-        // Using mock data for now
         setTimeout(() => {
           setInitialTodos(data.todos);
         }, 500);
@@ -64,7 +57,6 @@ function App() {
     fetchData();
   }, []);
   
-  // Use our custom hook to manage todos
   const { 
     todos, 
     isLoading, 
@@ -82,29 +74,22 @@ function App() {
     redo
   } = useTodos(initialTodos);
 
-  // Show success message for actions
   const showSuccess = (message: string) => {
-    // Clear any existing error message
     setShowErrorMessage(false);
     
-    // Show success message
     setSuccessMessage(message);
     setShowSuccessMessage(true);
     setTimeout(() => setShowSuccessMessage(false), 3000);
   };
 
-  // Show error message
   const showError = (message: string) => {
-    // Clear any existing success message
     setShowSuccessMessage(false);
     
-    // Show error message
     setErrorMessage(message);
     setShowErrorMessage(true);
     setTimeout(() => setShowErrorMessage(false), 3000);
   };
 
-  // Enhanced handlers with success messages
   const handleAddTodo = (content: string) => {
     addTodo(content);
     showSuccess('Todo added successfully!');
@@ -136,10 +121,8 @@ function App() {
     showSuccess('Action redone!');
   };
 
-  // Keyboard shortcuts for undo/redo
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Check if Ctrl/Cmd + Z is pressed
       if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
         if (!e.shiftKey && canUndo) {
           e.preventDefault();
@@ -155,7 +138,6 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [canUndo, canRedo]);
 
-  // Count completed todos
   const completedCount = todos.filter(todo => todo.checked).length;
   
   return (
