@@ -17,9 +17,6 @@ interface TodoListProps {
   showCompleted: boolean;
 }
 
-/**
- * Component for rendering the list of todo items
- */
 const TodoList: React.FC<TodoListProps> = ({ 
   todos, 
   onToggle, 
@@ -33,7 +30,6 @@ const TodoList: React.FC<TodoListProps> = ({
   error,
   showCompleted
 }) => {
-  // Filter todos based on showCompleted flag
   const filteredTodos = showCompleted 
     ? todos 
     : todos.filter(todo => !todo.checked);
